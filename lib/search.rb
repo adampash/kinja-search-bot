@@ -15,8 +15,7 @@ class Search
   )
 
   def self.new(query)
-    sites = "site:(#{SITES.join(' OR ')}"
-    link = Google::Search::Web.new(query: "#{sites} #{query}").first.uri
+    link = Google::Search::Web.new(query: construct_query(query)).first.uri
     get_post_json get_post_id(link)
   end
 
