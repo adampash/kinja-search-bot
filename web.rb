@@ -8,7 +8,8 @@ require_relative './lib/search'
 
 post '/search' do
   params = JSON.parse request.body.read
+  puts params
 
   result = Search.new params["text"]
-  puts result["data"]["headline"]
+  result["data"]["headline"]
 end
