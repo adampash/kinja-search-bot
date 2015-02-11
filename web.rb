@@ -1,7 +1,14 @@
 require 'sinatra'
-require 'httparty'
+require 'json'
+require 'slack-notifier'
+require_relative './lib/search'
 
-post '/search/' do
-  # require 'pry'; binding.pry
-  JSONP HTTParty.get("#{POST_API}/#{params[:id]}").body
+# SECRETS = YAML::load(IO.read('config/secrets.yml'))
+# SEARCH_API = SECRETS["kinja"]["url"]
+
+post '/search' do
+  params = JSON.parse request.body.read
+
+  result = Search.new "wasted girl"
+  puts result
 end
