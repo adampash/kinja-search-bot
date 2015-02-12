@@ -16,25 +16,29 @@ class Search
   )
 
   def initialize(query)
+    @raw_query = query
+  end
+
+  def run(query=@raw_query)
     link = ""
     Google::Search::Web.new(query: construct_query(query)).each do |result|
-      if Search.is_post?(result.uri)
+      if is_post?(result.uri)
         link = result.uri
         break
       end
     end
-    @result = Search.get_post_json(Search.get_post_id(link))["data"]
+    @result = get_post_json(get_post_id(link))["data"]
   end
 
-  def self.is_post?(link)
-    !Search.get_post_id(link).nil?
+  def is_post?(link)
+    !get_post_id(link).nil?
   end
 
-  def self.get_post_json(id)
+  def get_post_json(id)
     JSON.parse HTTParty.get "#{KINJA_POST_API}/#{id}"
   end
 
-  def self.get_post_id(link)
+  def get_post_id(link)
     if link.match(/\/(\d+)\//)
       link.match(/\/(\d+)\//)[1]
     elsif link.match(/-(\d+)[\/\b\+#]?/)

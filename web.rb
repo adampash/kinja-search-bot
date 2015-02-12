@@ -17,9 +17,9 @@ post '/search' do
   unless params["token"] == SLACK_TOKEN
     status 404
   else
-    search = Search.new params["text"]
+    search = Search.new(params["text"]).run
     result = search.result
-    notifier.ping "First result for: *#{search.query}* on #{search.domains}",
+    notifier.ping "First result for *#{search.query}* on #{search.domains}",
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],
       channel: params["channel_id"],
