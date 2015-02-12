@@ -26,4 +26,12 @@ describe Search do
     expect(sites).to eq "site:(gawker.com OR jezebel.com OR lifehacker.com OR gizmodo.com OR io9.com OR kotaku.com OR jalopnik.com OR deadspin.com) best thing"
   end
 
+  it "tests whether or not a link is a post" do
+    link = "http://jezebel.com/tag/dogs"
+    expect(Search.is_post?(link)).to be false
+
+    link = "http://lifehacker.com/the-always-up-to-date-guide-to-building-a-hackintosh-o-5841604"
+    expect(Search.is_post?(link)).to be true
+  end
+
 end
