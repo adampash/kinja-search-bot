@@ -16,7 +16,7 @@ class Search
 
   def self.new(query)
     link = Google::Search::Web.new(query: construct_query(query)).first.uri
-    get_post_json get_post_id(link)
+    get_post_json(get_post_id(link))["data"]
   end
 
   def self.get_post_json(id)

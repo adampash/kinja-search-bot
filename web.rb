@@ -19,11 +19,13 @@ post '/search' do
     status 404
   else
     result = Search.new params["text"]
-    {text: result["data"]["headline"]}.to_json
-
-    notifier.channel  = "@adampash" #params["channel_name"]
+    {text: result["headline"]}.to_json
+    headline = result["headline"]
+    url = result["permalink"]
+    notifier.channel  = params["channel_id"]
     notifier.username = 'SrchBot'
-    notifier.ping result["data"]["headline"]
+    notifier.ping "#{headline} #{url}",
+      icon_emoji: ":telescope:"
     status 200
   end
 end
