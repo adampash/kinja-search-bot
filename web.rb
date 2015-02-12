@@ -17,8 +17,9 @@ post '/search' do
   unless params["token"] == SLACK_TOKEN
     status 404
   else
-    result = Search.new params["text"]
-    notifier.ping "",
+    search = Search.new params["text"]
+    result = search.result
+    notifier.ping search.query,
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],
       channel: params["channel_id"],

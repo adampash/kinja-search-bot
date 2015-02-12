@@ -14,8 +14,7 @@ class Search
     deadspin
   )
 
-  def self.new(query)
-    # Google::Search::Web.new(query: construct_query(query)).first.uri
+  def self.initialize(query)
     link = ""
     Google::Search::Web.new(query: construct_query(query)).each do |result|
       if is_post?(result.uri)
@@ -23,7 +22,7 @@ class Search
         break
       end
     end
-    get_post_json(get_post_id(link))["data"]
+    @result = get_post_json(get_post_id(link))["data"]
   end
 
   def self.is_post?(link)
@@ -54,6 +53,7 @@ class Search
       end
     end
     sites = SITES.map { |site| "#{site}.com" } if sites.empty?
+    @query = words.join(" ")
     "site:(#{sites.join(" OR ")}) #{words.join(" ")}"
   end
 end
