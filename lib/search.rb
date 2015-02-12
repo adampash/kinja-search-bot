@@ -2,7 +2,7 @@ require 'google-search'
 require 'httparty'
 
 class Search
-  attr_accessor :result, :query
+  attr_accessor :result, :query, :domains
   KINJA_POST_API = "https://kinja-api.herokuapp.com/post"
   SITES = %w(
     gawker
@@ -17,7 +17,7 @@ class Search
 
   def initialize(query)
     link = ""
-    Google::Search::Web.new(query: Search.construct_query(query)).each do |result|
+    Google::Search::Web.new(query: construct_query(query)).each do |result|
       if Search.is_post?(result.uri)
         link = result.uri
         break
@@ -42,7 +42,7 @@ class Search
     end
   end
 
-  def self.construct_query(query)
+  def construct_query(query)
     sites = []
     words = []
     query.split(" ").each do |word|
@@ -55,6 +55,7 @@ class Search
     end
     sites = SITES.map { |site| "#{site}.com" } if sites.empty?
     @query = words.join(" ")
+    @domains = sites.join(", ")
     "site:(#{sites.join(" OR ")}) #{words.join(" ")}"
   end
 end
