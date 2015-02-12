@@ -18,9 +18,6 @@ post '/search' do
     status 404
   else
     result = Search.new params["text"]
-    # response = build_response result
-    headline = result["headline"]
-    url = result["permalink"]
     notifier.ping "",
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],

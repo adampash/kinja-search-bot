@@ -46,8 +46,9 @@ class Search
     sites = []
     words = []
     query.split(" ").each do |word|
-      if SITES.include? word
-        sites.push "#{word}.com"
+      lower_word = word.downcase
+      if SITES.include? lower_word
+        sites.push "#{lower_word}.com"
       else
         words.push word
       end

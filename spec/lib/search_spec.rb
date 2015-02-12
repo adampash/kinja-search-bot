@@ -19,6 +19,9 @@ describe Search do
     sites = Search.construct_query("gawker best thing")
     expect(sites).to eq "site:(gawker.com) best thing"
 
+    sites = Search.construct_query("Gawker best thing")
+    expect(sites).to eq "site:(gawker.com) best thing"
+
     sites = Search.construct_query("gawker lifehacker best thing")
     expect(sites).to eq "site:(gawker.com OR lifehacker.com) best thing"
 
