@@ -2,11 +2,10 @@ require 'sinatra'
 require 'json'
 require 'slack-notifier'
 require_relative './lib/search'
+require_relative './config/config'
 
-SECRETS = YAML::load(IO.read('config/secrets.yml'))
-SLACK_TOKEN = SECRETS["slack"]["token"] || ENV["SLACK_TOKEN"]
-SLACK_WEBHOOK = SECRETS["slack"]["webhook"] || ENV["SLACK_WEBHOOK"]
-# SEARCH_API = SECRETS["kinja"]["url"]
+SLACK_TOKEN = SERVICES["slack"]["token"]
+SLACK_WEBHOOK = SERVICES["slack"]["webhook"]
 notifier = Slack::Notifier.new SLACK_WEBHOOK
 
 post '/search' do
