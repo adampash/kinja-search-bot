@@ -26,8 +26,8 @@ class Search
   def self.get_post_id(link)
     if link.match(/\/(\d+)\//)
       link.match(/\/(\d+)\//)[1]
-    elsif link.match(/-(\d+)[\/\b\+#]/)
-      link.match(/-(\d+)[\/\b\+#]/)[1]
+    elsif link.match(/-(\d+)[\/\b\+#]?/)
+      link.scan(/-(\d+)[\/\b\+#]?/).last.last
     end
   end
 

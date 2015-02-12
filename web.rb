@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'json'
 require 'slack-notifier'
 
 if settings.development?

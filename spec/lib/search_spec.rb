@@ -10,6 +10,9 @@ describe Search do
 
     post_id = Search.get_post_id("http://newsfeed.gawker.com/a-roof-100-without-snow-means-reefer-will-grow-1685170905/+tcberman")
     expect(post_id).to eq "1685170905"
+
+    post_id = Search.get_post_id("http://lifehacker.com/the-always-up-to-date-guide-to-building-a-hackintosh-o-5841604")
+    expect(post_id).to eq "5841604"
   end
 
   it "gets the sites to search" do
