@@ -7,8 +7,11 @@ require_relative './lib/search'
 # SEARCH_API = SECRETS["kinja"]["url"]
 
 post '/search' do
+  puts params
+  puts "FIRST PARAMS!\n\n"
   params = JSON.parse request.body.read
   puts params
+  puts "SECOND PARAMS!"
 
   result = Search.new params["text"]
   result["data"]["headline"]
