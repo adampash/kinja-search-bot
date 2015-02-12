@@ -22,11 +22,11 @@ post '/search' do
     # response = build_response result
     headline = result["headline"]
     url = result["permalink"]
-    notifier.channel  = params["channel_id"]
-    notifier.username = 'SrchBot'
     notifier.ping "<#{url}|#{headline}>",
       icon_emoji: ":telescope:",
-      attachments: [build_attachment(result)]
+      attachments: [build_attachment(result)],
+      channel: params["channel_id"],
+      username: "SrchBot"
     status 200
   end
 end
@@ -40,7 +40,7 @@ def build_attachment(result)
   {
     fallback: "<#{url}|#{headline}>",
     author_name: author_name,
-    author_icon: author_avatar,
+    author_icon: author_icon,
     title: headline,
     title_link: url,
     image_url: result["images"][0]["uri"]
