@@ -20,7 +20,8 @@ post '/search' do
     search = Search.new(params["text"])
     search.run
     result = search.result
-    notifier.ping "First result for *#{search.query}* on #{search.domains}",
+    request_user = params["user_name"]
+    notifier.ping "Hey #{request_user}! Here's the first result for *#{search.query}* on #{search.domains}",
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],
       channel: params["channel_id"],
