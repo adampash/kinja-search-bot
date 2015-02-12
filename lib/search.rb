@@ -22,7 +22,7 @@ class Search
         break
       end
     end
-    @result = get_post_json(get_post_id(link))["data"]
+    @result = Search.get_post_json(Search.get_post_id(link))["data"]
   end
 
   def self.is_post?(link)
