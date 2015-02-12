@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'slack-notifier'
+require 'htmlentities'
 
 if settings.development?
   require 'dotenv'
@@ -32,6 +33,7 @@ end
 
 AVATAR_URL = "http://i.kinja-img.com/gawker-media/image/upload/s--jqe8lYjQ--/c_fill,fl_progressive,g_center,h_80,q_80,w_80"
 def build_attachment(result)
+  coder = HTMLEntities.new
   headline = result["headline"]
   url = result["permalink"]
   author_name = result["author"]["displayName"]
@@ -41,9 +43,9 @@ def build_attachment(result)
     fallback: "<#{url}|#{headline}>",
     author_name: author_name,
     author_icon: author_icon,
-    title: headline,
+    title: coder.decode(headline),
     title_link: url,
-    text: result["parsedBody"]["compact"],
+    text: coder.decode(result["parsedBody"]["compact"]),
     image_url: img
   }
 end
