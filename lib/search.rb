@@ -16,8 +16,8 @@ class Search
 
   def initialize(query)
     link = ""
-    Google::Search::Web.new(query: construct_query(query)).each do |result|
-      if is_post?(result.uri)
+    Google::Search::Web.new(query: Search.construct_query(query)).each do |result|
+      if Search.is_post?(result.uri)
         link = result.uri
         break
       end
