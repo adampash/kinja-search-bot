@@ -20,6 +20,10 @@ post '/search' do
   else
     result = Search.new params["text"]
     {text: result["data"]["headline"]}.to_json
-    result["data"]["headline"]
+
+    notifier.channel  = params["channel_name"]
+    notifier.username = 'SrchBot'
+    notifier.ping result["data"]["headline"]
+    status 200
   end
 end
