@@ -2,6 +2,7 @@ require 'google-search'
 require 'httparty'
 
 class Search
+  attr_accessor :result, :query
   KINJA_POST_API = "https://kinja-api.herokuapp.com/post"
   SITES = %w(
     gawker
@@ -26,7 +27,7 @@ class Search
   end
 
   def self.is_post?(link)
-    !get_post_id(link).nil?
+    !Search.get_post_id(link).nil?
   end
 
   def self.get_post_json(id)
