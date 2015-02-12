@@ -1,4 +1,4 @@
-if settings.development?
+if !settings.nil? and settings.development?
   SERVICES = YAML::load(IO.read('config/secrets.yml'))
 else
   SERVICES = {}
