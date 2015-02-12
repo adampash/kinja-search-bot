@@ -21,7 +21,7 @@ post '/search' do
     # response = build_response result
     headline = result["headline"]
     url = result["permalink"]
-    notifier.ping "<#{url}|#{headline}>",
+    notifier.ping "",
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],
       channel: params["channel_id"],
