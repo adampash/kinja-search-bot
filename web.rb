@@ -19,13 +19,22 @@ post '/search' do
     status 404
   else
     result = Search.new params["text"]
-    {text: result["headline"]}.to_json
+    # response = build_response result
     headline = result["headline"]
     url = result["permalink"]
     notifier.channel  = params["channel_id"]
     notifier.username = 'SrchBot'
-    notifier.ping "#{headline} #{url}",
-      icon_emoji: ":telescope:"
+    notifier.ping "<#{url}|#{headline}>",
+      icon_emoji: ":telescope:",
+      unfurl_link: true
     status 200
   end
+end
+
+def build_response(result)
+  headline = result["headline"]
+  url = result["permalink"]
+  {
+    fallback: "#{headline} #{url}",
+  }
 end
