@@ -37,12 +37,14 @@ def build_attachment(result)
   url = result["permalink"]
   author_name = result["author"]["displayName"]
   author_icon = "#{AVATAR_URL}/#{result["author"]["avatar"]["id"]}.#{result["author"]["avatar"]["format"]}"
+  img = result["parsedBody"]["sharingMainImage"]["src"]
   {
     fallback: "<#{url}|#{headline}>",
     author_name: author_name,
     author_icon: author_icon,
     title: headline,
     title_link: url,
-    image_url: result["images"][0]["uri"]
+    text: result["parsedBody"]["compact"],
+    image_url: img
   }
 end
