@@ -14,7 +14,7 @@ class Search
     deadspin
   )
 
-  def self.initialize(query)
+  def initialize(query)
     link = ""
     Google::Search::Web.new(query: construct_query(query)).each do |result|
       if is_post?(result.uri)

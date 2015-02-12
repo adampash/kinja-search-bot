@@ -19,7 +19,7 @@ post '/search' do
   else
     search = Search.new params["text"]
     result = search.result
-    notifier.ping search.query,
+    notifier.ping "First result for: *#{search.query}*",
       icon_emoji: ":telescope:",
       attachments: [build_attachment(result)],
       channel: params["channel_id"],
