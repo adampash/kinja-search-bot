@@ -1,11 +1,17 @@
 require 'sinatra'
 require 'json'
 require 'slack-notifier'
-require_relative './lib/search'
-require_relative './config/config'
 
-SLACK_TOKEN = SERVICES["slack"]["token"]
-SLACK_WEBHOOK = SERVICES["slack"]["webhook"]
+if settings.development?
+  require 'dotenv'
+  Dotenv.load
+end
+
+require_relative './lib/search'
+
+SLACK_TOKEN = ENV["SLACK_TOKEN"]
+SLACK_WEBHOOK = ENV["SLACK_WEBHOOK"]
+
 notifier = Slack::Notifier.new SLACK_WEBHOOK
 
 post '/search' do
